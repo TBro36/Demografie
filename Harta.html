@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" />
+  <title>Harta Interactivă - Exemplu Leaflet</title>
+  <!-- CSS Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+    integrity="sha256-sA+e2jsZo6ckzL2qYk7qI5UlAnFeKM+OkHn3LWgG4ps="
+    crossorigin=""
+  />
+  <style>
+    /* Dimensiunea container-ului pentru hartă */
+    #mapid {
+      height: 600px;
+      width: 100%;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Containerul unde va fi încărcată harta -->
+  <div id="mapid"></div>
+
+  <!-- JS Leaflet -->
+  <script
+    src="https://unpkg.com/leaflet/dist/leaflet.js"
+    integrity="sha256-ns1BJB4G0YsRJRKxJXvEczlEjsOvC0OdLFg8KUTz+Ug="
+    crossorigin=""
+  ></script>
+  <script>
+    // 1. Inițializăm harta, setăm poziția și nivelul de zoom
+    var mymap = L.map('mapid').setView([45.9432, 24.9668], 6); 
+    // (Coordonatele sunt aproximativ pe centrul României)
+
+    // 2. Adăugăm un "layer" de tip tile (OpenStreetMap)
+    L.tileLayer('https://tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    }).addTo(mymap);
+
+    // 3. Adăugăm un marker (ex. în București)
+    var marker = L.marker([44.4268, 26.1025]).addTo(mymap);
+    marker.bindPopup("București").openPopup();
+
+    // 4. Adăugăm un cerc de 10 km în jurul Bucureștiului
+    var circle = L.circle([44.4268, 26.1025], {
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.3,
+      radius: 10000
+    }).addTo(mymap);
+    circle.bindPopup("Cerc cu rază de 10 km");
+  </script>
+</body>
+</html>
